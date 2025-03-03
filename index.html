@@ -1,1 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Argumentative Essay B2</title>
+    <!-- Import Comfortaa font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Comfortaa', Arial, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+        /* Creator info at top center */
+        .creator-info {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #111111;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.7);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        h1, h2, h3 {
+            text-align: center;
+            margin: 0 0 10px 0;
+        }
+        /* Title in gold */
+        h1 {
+            color: gold;
+        }
+        .button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid rgba(255,255,255,0.3);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.6), 0 8px 15px rgba(0,0,0,0.7);
+        }
+        .topic-section {
+            background-color: #B30000;
+        }
+        .arguments-section {
+            background-color: #B36B00;
+        }
+        .counter-section {
+            background-color: #8C00B3;
+        }
+        .essay-section {
+            background-color: #006BB3;
+        }
+
+        #topic, #arguments, #counterArguments {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            min-height: 50px;
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.6);
+        }
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #000;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+        }
+
+        /* Popup styling */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 700px;
+            background: #ffffff;
+            padding: 20px;
+            box-shadow: 0 8px 12px rgba(0,0,0,0.4);
+            border-radius: 10px;
+            z-index: 1000;
+            overflow-y: auto;
+            max-height: 80vh;
+            color: #000000;
+        }
+        .close {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+            margin-top: -10px;
+        }
+        .popup h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+        .phrase-section {
+            margin-bottom: 20px;
+        }
+        .phrase-section h4 {
+            margin: 10px 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="creator-info">Created by Panagiotis Domvros 2025 (CC BY-NC)</div>
+
+<div class="container">
+    <h1>📝 Argumentative Essay B2</h1>
+
+    <!-- Buttons row -->
+    <button class="button" onclick="generateTopic()">🎲 Generate Random Topic</button>
+    <button class="button" onclick="openPopup()">📚 Language Bank</button>
+
+    <!-- Sections for topic, arguments, counter-arguments, essay -->
+    <div class="section topic-section">
+        <h2>📌 Topic</h2>
+        <div id="topic">Press the button to receive a topic.</div>
+    </div>
+
+    <div class="section arguments-section">
+        <h3>💡 Suggested Arguments</h3>
+        <div id="arguments">They will appear after the topic is generated.</div>
+    </div>
+
+    <div class="section counter-section">
+        <h3>⚖️ Counter-Arguments</h3>
+        <div id="counterArguments">They will appear after the topic is generated.</div>
+    </div>
+
+    <div class="section essay-section">
+        <h3>📝 Essay Writing</h3>
+        <textarea id="essayText" placeholder="Write your essay here..."></textarea>
+    </div>
+
+    <!-- Copy & Submit Button referencing Tally form -->
+    <button class="button" onclick="copyAndSubmit()">📋 Copy & Submit</button>
+</div>
+
+<!-- Overlay & Popup for Language Bank -->
+<div id="overlay" class="overlay" onclick="closePopup()"></div>
+<div id="popup" class="popup">
+    <span class="close" onclick="closePopup()">&times;</span>
+    <h2>📖 Language Bank (B2)</h2>
+
+    <div class="phrase-section">
+        <h4>✅ Introduction</h4>
+        <ul>
+            <li>The topic of ... is particularly important in modern society.</li>
+            <li>Nowadays, many people discuss ...</li>
+            <li>One of the most debated issues today is ...</li>
+            <li>It is commonly believed that ...</li>
+            <li>Have we ever wondered what life would be like without ...?</li>
+        </ul>
+    </div>
+
+    <div class="phrase-section">
+        <h4>🔹 Main Body</h4>
+        <ul>
+            <li>One of the strongest points in favor of ... is that ...</li>
+            <li>First of all, we should mention that ...</li>
+            <li>Another convincing argument is ...</li>
+            <li>A prime example of this is ...</li>
+            <li>According to research, ...</li>
+            <li>Moreover, it is crucial to highlight that ...</li>
+            <li>Statistics indicate that ...</li>
+            <li>Scientific studies suggest that ...</li>
+            <li>Personal experience shows that ...</li>
+        </ul>
+    </div>
+
+    <div class="phrase-section">
+        <h4>⚖️ Counter-Arguments</h4>
+        <ul>
+            <li>Some people argue that ... However, this is not necessarily true because ...</li>
+            <li>While it is often claimed that ..., in reality ...</li>
+            <li>One might also mention the opposing view that ... Yet, ...</li>
+            <li>There could be a different opinion suggesting ... Nevertheless, ...</li>
+        </ul>
+    </div>
+
+    <div class="phrase-section">
+        <h4>📌 Conclusion</h4>
+        <ul>
+            <li>In conclusion, it can be stated that ...</li>
+            <li>Overall, it becomes evident that ...</li>
+            <li>After considering all the points above, we can see that ...</li>
+            <li>All the evidence points to the fact that ...</li>
+            <li>As we take these arguments into account, it is clear that ...</li>
+            <li>Ultimately, it is worth emphasizing that ...</li>
+            <li>Therefore, we should all take action to ...</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    /* We have 20 topics in English for B2 level. Also re-add the copy & submit logic. */
+
+    const topics = [
+        {
+            title: "Should social media be used in education?",
+            arguments: [
+                "It improves access to information.",
+                "It enhances student collaboration.",
+                "It develops digital skills."
+            ],
+            counterArguments: [
+                "It creates distractions.",
+                "It may lead to misinformation.",
+                "It increases dependency on technology."
+            ]
+        },
+        {
+            title: "Should school uniforms be mandatory?",
+            arguments: [
+                "They promote unity among students.",
+                "They reduce peer pressure based on clothing.",
+                "They simplify daily outfit choices."
+            ],
+            counterArguments: [
+                "They limit self-expression.",
+                "They might not be affordable for all families.",
+                "They do not reflect modern styles."
+            ]
+        },
+        {
+            title: "Is it beneficial for teenagers to have part-time jobs?",
+            arguments: [
+                "They learn responsibility.",
+                "They earn extra income.",
+                "They gain early work experience."
+            ],
+            counterArguments: [
+                "It may reduce time for studying.",
+                "It can increase stress.",
+                "It might affect academic performance."
+            ]
+        },
+        {
+            title: "Should exams be abolished in high schools?",
+            arguments: [
+                "They reduce student anxiety.",
+                "They encourage alternative assessment methods.",
+                "They emphasize continuous learning."
+            ],
+            counterArguments: [
+                "They remove a clear measure of progress.",
+                "They are not always replaced by fair evaluations.",
+                "They require broader structural changes."    
+            ]
+        },
+        {
+            title: "Are smartphones helpful or harmful in the classroom?",
+            arguments: [
+                "They provide quick access to research.",
+                "They allow emergency communication.",
+                "They can run educational apps."
+            ],
+            counterArguments: [
+                "They distract students.",
+                "They increase social media dependence.",
+                "They can cause classroom disruptions."
+            ]
+        },
+        {
+            title: "Should students be required to do volunteer work?",
+            arguments: [
+                "It fosters a sense of community.",
+                "It teaches valuable life skills.",
+                "It encourages empathy and teamwork."
+            ],
+            counterArguments: [
+                "It might be too time-consuming.",
+                "Mandatory service can reduce genuine motivation.",
+                "It may not suit every student's schedule or interests."
+            ]
+        },
+        {
+            title: "Is online learning as effective as traditional classes?",
+            arguments: [
+                "It offers schedule flexibility.",
+                "It can personalize learning paths.",
+                "It broadens access to education."
+            ],
+            counterArguments: [
+                "It reduces face-to-face interaction.",
+                "It depends on reliable technology.",
+                "It may be harder to stay focused."
+            ]
+        },
+        {
+            title: "Should physical exercise be prioritized in daily school routine?",
+            arguments: [
+                "It improves physical health.",
+                "It helps students concentrate better.",
+                "It promotes overall mental well-being."
+            ],
+            counterArguments: [
+                "Some have limited time or facilities.",
+                "Excessive exercise can cause fatigue.",
+                "It demands proper sports equipment."
+            ]
+        },
+        {
+            title: "Is reading printed books still important in the digital age?",
+            arguments: [
+                "It enriches vocabulary.",
+                "It sparks imagination.",
+                "It encourages deeper concentration."
+            ],
+            counterArguments: [
+                "E-books are more convenient.",
+                "Many find reading outdated.",
+                "It can be time-consuming."
+            ]
+        },
+        {
+            title: "Does technology help or hinder group projects?",
+            arguments: [
+                "It enhances communication among team members.",
+                "It streamlines research and data sharing.",
+                "It can track individual contributions easily."
+            ],
+            counterArguments: [
+                "Some members might rely too much on others.",
+                "Technological issues can delay progress.",
+                "It can cause confusion without proper coordination."
+            ]
+        },
+        {
+            title: "Should schools teach financial literacy as a core subject?",
+            arguments: [
+                "It prepares students for adult life.",
+                "It prevents future debt and money problems.",
+                "It encourages responsible spending."
+            ],
+            counterArguments: [
+                "It might crowd out other essential subjects.",
+                "Some argue it should be taught at home.",
+                "It requires specially trained teachers."
+            ]
+        },
+        {
+            title: "Are part-time jobs beneficial or detrimental for high school students?",
+            arguments: [
+                "They develop responsibility.",
+                "They provide extra income.",
+                "They offer early exposure to the workforce."
+            ],
+            counterArguments: [
+                "They reduce study time.",
+                "They might increase stress.",
+                "They can cause lower academic performance."
+            ]
+        },
+        {
+            title: "Is the use of tablets replacing textbooks a good idea?",
+            arguments: [
+                "They lighten the load of physical books.",
+                "They can update content instantly.",
+                "They offer interactive learning tools."
+            ],
+            counterArguments: [
+                "They can be expensive for schools.",
+                "They might cause eye strain.",
+                "They depend on stable technology."
+            ]
+        },
+        {
+            title: "How does social inequality affect education?",
+            arguments: [
+                "It raises awareness about equal opportunities.",
+                "It highlights issues for public discussion.",
+                "It shows the need for support programs."
+            ],
+            counterArguments: [
+                "It cannot be solved solely by schools.",
+                "It requires systemic government action.",
+                "It may cause divisions among students."
+            ]
+        },
+        {
+            title: "Are video games good for cognitive development?",
+            arguments: [
+                "They improve hand-eye coordination.",
+                "They boost problem-solving skills.",
+                "They can enhance creativity."
+            ],
+            counterArguments: [
+                "They may lead to addiction.",
+                "They reduce time for physical activity.",
+                "They require supervision to avoid misuse."
+            ]
+        },
+        {
+            title: "Should students learn a musical instrument at school?",
+            arguments: [
+                "It fosters creativity.",
+                "It strengthens concentration and discipline.",
+                "It provides emotional expression."
+            ],
+            counterArguments: [
+                "It demands extra equipment and space.",
+                "It might add to daily stress.",
+                "Not all students have musical talent."
+            ]
+        },
+        {
+            title: "Does climate change education belong in every classroom?",
+            arguments: [
+                "It promotes environmental awareness.",
+                "It encourages responsible citizenship.",
+                "It prepares students for global challenges."
+            ],
+            counterArguments: [
+                "It can spark anxiety in learners.",
+                "Schools may lack resources or expertise.",
+                "Some consider it a controversial topic."
+            ]
+        },
+        {
+            title: "Should students have mandatory community service hours?",
+            arguments: [
+                "It builds empathy and compassion.",
+                "It connects learners to real-world issues.",
+                "It develops collaboration and civic duty."
+            ],
+            counterArguments: [
+                "It might interfere with academic obligations.",
+                "Some students already have tight schedules.",
+                "Mandatory service can diminish genuine interest."
+            ]
+        },
+        {
+            title: "Is online education equally effective for all age groups?",
+            arguments: [
+                "It offers flexible scheduling.",
+                "It can cater to various learning paces.",
+                "It transcends geographical barriers."
+            ],
+            counterArguments: [
+                "Younger learners may need in-person guidance.",
+                "Some lack the self-discipline required.",
+                "It demands reliable technology and internet."
+            ]
+        },
+        {
+            title: "Should exams be replaced by continuous assessment?",
+            arguments: [
+                "It reduces exam stress.",
+                "It reflects ongoing performance.",
+                "It values project-based learning."
+            ],
+            counterArguments: [
+                "It may be subjective if not standardized.",
+                "It requires more time and effort for teachers.",
+                "Some students excel in timed tests."
+            ]
+        }
+    ];
+
+    /* Copy & Submit logic referencing Tally (with fallback) */
+    function fallbackCopyTextToClipboard(text) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.position = "fixed";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            alert('Your essay has been copied (fallback)!');
+        } catch (err) {
+            alert('Failed to copy, even with fallback.');
+        }
+        document.body.removeChild(textArea);
+    }
+
+    function generateTopic() {
+        const randomIndex = Math.floor(Math.random() * topics.length);
+        const chosen = topics[randomIndex];
+        document.getElementById('topic').innerText = chosen.title;
+        document.getElementById('arguments').innerHTML =
+          "<ul><li>" + chosen.arguments.join("</li><li>") + "</li></ul>";
+        document.getElementById('counterArguments').innerHTML =
+          "<ul><li>" + chosen.counterArguments.join("</li><li>") + "</li></ul>";
+    }
+
+    function copyAndSubmit() {
+        const essayText = document.getElementById('essayText').value;
+        if (!essayText) {
+            // If no text, just open Tally
+            window.open('https://tally.so/r/meY48e', '_blank');
+            return;
+        }
+        if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(essayText)
+                .then(() => {
+                    alert('Your essay has been copied to the clipboard!');
+                    window.open('https://tally.so/r/meY48e', '_blank');
+                })
+                .catch(err => {
+                    console.error('Copy error:', err);
+                    fallbackCopyTextToClipboard(essayText);
+                    window.open('https://tally.so/r/meY48e', '_blank');
+                });
+        } else {
+            fallbackCopyTextToClipboard(essayText);
+            window.open('https://tally.so/r/meY48e', '_blank');
+        }
+    }
+
+    function openPopup() {
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('popup').style.display = 'block';
+    }
+
+    function closePopup() {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('popup').style.display = 'none';
+    }
+</script>
+</body>
+</html>
 
